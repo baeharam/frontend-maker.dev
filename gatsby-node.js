@@ -4,10 +4,10 @@ const { createFilePath } = require(`gatsby-source-filesystem`)
 exports.createPages = async ({ graphql, actions, reporter }) => {
   const { createPage } = actions
 
-  // Define a template for blog post
+  // 블로그 포스트 전용 템플릿 정의
   const blogPost = path.resolve(`./src/templates/blog-post.js`)
 
-  // Get all markdown blog posts sorted by date
+  // 날짜 기준으로 모든 마크다운 파일 가져옴
   const result = await graphql(
     `
       {
@@ -36,9 +36,11 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
 
   const posts = result.data.allMarkdownRemark.nodes
 
-  // Create blog posts pages
-  // But only if there's at least one markdown file found at "content/blog" (defined in gatsby-config.js)
-  // `context` is available in the template as a prop and as a variable in GraphQL
+  /**
+   * 블로그 포스팅 페이지 생성
+   * 하지만, "content/blog" 안에 적어도 1개의 마크다운 파일이 있을 경우에만 작동
+   * "context" 는 템플릿에서 prop 으로 사용 가능하며 GraphQL 에서 변수로 사용 가능
+   */
 
   if (posts.length > 0) {
     posts.forEach((post, index) => {
@@ -75,12 +77,15 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
 exports.createSchemaCustomization = ({ actions }) => {
   const { createTypes } = actions
 
-  // Explicitly define the siteMetadata {} object
-  // This way those will always be defined even if removed from gatsby-config.js
-
-  // Also explicitly define the Markdown frontmatter
-  // This way the "MarkdownRemark" queries will return `null` even when no
-  // blog posts are stored inside "content/blog" instead of returning an error
+  /**
+   * 명시적으로 siteMetadata 객체 정의
+   * 따라서, gatsby-config.js 에서 제거된다 해도 항상 정의된다.
+   * 
+   * 또한 명시적으로 마크다운 frontmatter 를 정의
+   * 이러한 방식으로 "MarkdownRemark" 쿼리들은 블로그 포스트들이 "content/blog" 에 없더라도
+   * 에러를 리턴하는 대신 "null" 을 리턴한다.
+   */
+  
   createTypes(`
     type SiteSiteMetadata {
       author: Author
