@@ -4,6 +4,7 @@ import { Link, graphql } from "gatsby"
 import Bio from "../components/bio"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
+import Utterances from "../components/utterance"
 
 const BlogPostTemplate = ({ data, location }) => {
   const post = data.markdownRemark
@@ -34,6 +35,7 @@ const BlogPostTemplate = ({ data, location }) => {
           <Bio />
         </footer>
       </article>
+      <Utterances repo="baeharam/blog-comments" theme="github-light" />
       <nav className="blog-post-nav">
         <ul
           style={{
