@@ -1,9 +1,9 @@
 module.exports = {
   siteMetadata: {
-    title: `Frontend Maker`,
+    title: `Clean Coder`,
     author: {
       name: `Haram Bae`,
-      summary: `대체할 수 없는 인력이 되어야 한다.`,
+      summary: `어제보다 더 나은 코드를 작성해야 한다.`,
     },
     social: {
       github: `baeharam`
@@ -34,6 +34,8 @@ module.exports = {
             resolve: `gatsby-remark-images`,
             options: {
               maxWidth: 630,
+              showCaptions: ['title'],
+              markdownCaptions: true
             },
           },
           {
@@ -51,6 +53,7 @@ module.exports = {
           },
           `gatsby-remark-copy-linked-files`,
           `gatsby-remark-smartypants`,
+          `gatsby-remark-emoji`
         ],
       },
     },
